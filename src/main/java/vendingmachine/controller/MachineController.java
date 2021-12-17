@@ -1,5 +1,7 @@
 package vendingmachine.controller;
 
+import vendingmachine.view.InputView;
+
 public class MachineController {
     private static MachineController instance;
 
@@ -15,5 +17,7 @@ public class MachineController {
     }
 
     private void initMachine() {
+        String input = InputView.insertMachineAmount();
+
     }
 }
