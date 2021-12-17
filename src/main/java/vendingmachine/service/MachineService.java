@@ -11,6 +11,7 @@ public class MachineService {
     private static final int MIN_QUANTITY = 1;
     private static final String INSUFFICIENT_PRODUCT_QUANTITY_MESSAGE = "상품 수량이 부족합니다.";
     private static final String INSUFFICIENT_AMOUNT_MESSAGE = "잔액이 부족합니다.";
+    private static final int NO_EXISTING_PRODUCT = 0;
     private static MachineService instance;
 
     public static MachineService getInstance() {
@@ -56,6 +57,19 @@ public class MachineService {
     }
 
     public boolean shouldContinue() {
+        return existProduct() && canBuyCheapest() && canBuyRemainingCheapest();
+    }
+
+
+    private boolean existProduct() {
+        return ProductRepository.getAllProductQuantity() != NO_EXISTING_PRODUCT;
+    }
+
+    private boolean canBuyCheapest() {
+        return ProductRepository.getCheapestProduct() <= MachineRepository.getUserAmount();
+    }
+
+    private boolean canBuyRemainingCheapest() {
         return ProductRepository.getCheapestWithAtLeastOneQuantity() <= MachineRepository.getUserAmount();
     }
 
