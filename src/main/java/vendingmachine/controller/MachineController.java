@@ -24,7 +24,9 @@ public class MachineController {
 
     public void run() {
         initMachine();
-        useMachine();
+        while (machineService.shouldContinue()) {
+            useMachine();
+        }
     }
 
     private void initMachine() {
