@@ -7,6 +7,8 @@ import vendingmachine.repository.MachineRepository;
 import java.util.Map;
 
 public class MachineService {
+    private static final int MIN_QUANTITY = 1;
+    private static final String INSUFFICIENT_PRODUCT_QUANTITY_MESSAGE = "상품 수량이 부족합니다.";
     private static MachineService instance;
 
     public static MachineService getInstance() {
@@ -30,5 +32,16 @@ public class MachineService {
 
     public int getUserAmount() {
         return MachineRepository.getUserAmount();
+    }
+
+    public void buyProduct(Product product) {
+        checkQuantity(product);
+        MachineRepository.reduceUserAmount(product.getPrice());
+    }
+
+    private void checkQuantity(Product product) {
+        if (product.getQuantity() < MIN_QUANTITY) {
+            throw new IllegalArgumentException(INSUFFICIENT_PRODUCT_QUANTITY_MESSAGE);
+        }
     }
 }

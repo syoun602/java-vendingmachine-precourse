@@ -51,4 +51,8 @@ public class VendingMachine {
     public int getUserAmount() {
         return userAmount;
     }
+
+    public void reduceUserAmount(int productPrice) {
+        this.userAmount -= productPrice;
+    }
 }

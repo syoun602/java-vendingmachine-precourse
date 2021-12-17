@@ -66,8 +66,10 @@ public class MachineController {
             InputView.printInputProductToBuy();
             String productName = InputView.getInput();
             Product product = productService.findProductByName(productName);
+            machineService.buyProduct(product);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e);
+            useMachine();
         }
     }
 }

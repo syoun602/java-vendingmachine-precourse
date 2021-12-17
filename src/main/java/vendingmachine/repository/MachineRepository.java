@@ -23,4 +23,8 @@ public class MachineRepository {
     public static int getUserAmount() {
         return vendingMachine.getUserAmount();
     }
+
+    public static void reduceUserAmount(int productPrice) {
+        vendingMachine.reduceUserAmount(productPrice);
+    }
 }
