@@ -27,6 +27,7 @@ public class MachineController {
         while (machineService.shouldContinue()) {
             useMachine();
         }
+        endMachine();
     }
 
     private void initMachine() {
@@ -73,5 +74,9 @@ public class MachineController {
             OutputView.printErrorMessage(e);
             useMachine();
         }
+    }
+
+    private void endMachine() {
+        OutputView.printChangesMessage(machineService.getUserAmount());
     }
 }

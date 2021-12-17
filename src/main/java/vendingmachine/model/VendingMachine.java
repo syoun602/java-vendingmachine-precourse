@@ -55,4 +55,22 @@ public class VendingMachine {
     public void reduceUserAmount(int productPrice) {
         this.userAmount -= productPrice;
     }
+
+    public Map<Coin, Integer> calculateChanges() {
+        Map<Coin, Integer> changes = new TreeMap<>();
+        coins.keySet().forEach(coin -> {
+            int count = userAmount / coin.getAmount();
+            count = Math.min(count, coins.get(coin));
+            putIfExists(changes, coin, count);
+            userAmount -= count * coin.getAmount();
+        });
+        return changes;
+    }
+
+    private void putIfExists(Map<Coin, Integer> changes, Coin coin, int count) {
+        if (count > DEFAULT_COUNT) {
+            changes.put(coin, count);
+            coins.merge(coin, coins.get(coin) - count, Integer::min);
+        }
+    }
 }

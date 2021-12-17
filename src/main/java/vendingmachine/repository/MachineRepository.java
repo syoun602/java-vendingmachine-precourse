@@ -27,4 +27,8 @@ public class MachineRepository {
     public static void reduceUserAmount(int productPrice) {
         vendingMachine.reduceUserAmount(productPrice);
     }
+
+    public static Map<Coin, Integer> getChanges() {
+        return vendingMachine.calculateChanges();
+    }
 }

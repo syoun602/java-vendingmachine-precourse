@@ -58,4 +58,8 @@ public class MachineService {
     public boolean shouldContinue() {
         return ProductRepository.getCheapestWithAtLeastOneQuantity() <= MachineRepository.getUserAmount();
     }
+
+    public Map<Coin, Integer> getChanges() {
+        return MachineRepository.getChanges();
+    }
 }
