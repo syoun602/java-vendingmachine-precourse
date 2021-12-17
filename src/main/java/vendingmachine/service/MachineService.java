@@ -60,7 +60,6 @@ public class MachineService {
         return existProduct() && canBuyCheapest() && canBuyRemainingCheapest();
     }
 
-
     private boolean existProduct() {
         return ProductRepository.getAllProductQuantity() != NO_EXISTING_PRODUCT;
     }
