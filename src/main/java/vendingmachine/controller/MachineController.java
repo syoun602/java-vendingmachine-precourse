@@ -52,6 +52,7 @@ public class MachineController {
             return inputAmount();
         }
     }
+
     private String inputProducts() {
         try {
             String input = InputView.getInput();

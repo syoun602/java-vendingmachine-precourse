@@ -4,7 +4,6 @@ import vendingmachine.model.Product;
 import vendingmachine.repository.ProductRepository;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class ProductService {
     private static final String SEMI_COLON = ";";
@@ -22,7 +21,7 @@ public class ProductService {
 
     public void addProducts(String inputProducts) {
         for (String productInput : inputProducts.split(SEMI_COLON)) {
-            String substring = productInput.substring(BRACKET_INDEX, productInput.length()-BRACKET_INDEX);
+            String substring = productInput.substring(BRACKET_INDEX, productInput.length() - BRACKET_INDEX);
             ProductRepository.saveProduct(Arrays.asList(substring.split(COMMA)));
 
         }

@@ -18,7 +18,6 @@ public class Product {
         this.quantity = Integer.parseInt(productDetails.get(QUANTITY_INDEX));
     }
 
-
     public String getName() {
         return name;
     }

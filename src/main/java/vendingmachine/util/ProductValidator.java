@@ -41,7 +41,7 @@ public class ProductValidator {
     private static void validateEachProduct(List<String> productsList) {
         for (String product : productsList) {
             validateBrackets(product);
-            product = product.substring(1, product.length()-1);
+            product = product.substring(1, product.length() - 1);
             validateProductLastCharacter(product);
             validateEachDetail(Arrays.asList(product.split(COMMA)));
         }

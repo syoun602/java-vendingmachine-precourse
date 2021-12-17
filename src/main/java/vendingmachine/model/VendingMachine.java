@@ -40,16 +40,8 @@ public class VendingMachine {
         return machineAmount;
     }
 
-    public Map<Coin, Integer> getCoins() {
-        return coins;
-    }
-
     public void addUserAmount(int userAmount) {
         this.userAmount += userAmount;
-    }
-
-    public int getUserAmount() {
-        return userAmount;
     }
 
     public void reduceUserAmount(int productPrice) {
@@ -72,5 +64,13 @@ public class VendingMachine {
             changes.put(coin, count);
             coins.merge(coin, coins.get(coin) - count, Integer::min);
         }
+    }
+
+    public Map<Coin, Integer> getCoins() {
+        return coins;
+    }
+
+    public int getUserAmount() {
+        return userAmount;
     }
 }
