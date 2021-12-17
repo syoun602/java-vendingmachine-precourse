@@ -1,6 +1,7 @@
 package vendingmachine.service;
 
 import vendingmachine.model.Coin;
+import vendingmachine.model.Product;
 import vendingmachine.repository.MachineRepository;
 
 import java.util.Map;

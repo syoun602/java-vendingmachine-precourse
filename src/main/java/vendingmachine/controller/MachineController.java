@@ -1,5 +1,6 @@
 package vendingmachine.controller;
 
+import vendingmachine.model.Product;
 import vendingmachine.service.MachineService;
 import vendingmachine.service.ProductService;
 import vendingmachine.util.AmountValidator;
@@ -60,7 +61,13 @@ public class MachineController {
     }
 
     private void useMachine() {
-        OutputView.printUserInsertAmount(machineService.getUserAmount());
-        InputView.printInputProductToBuy();
+        try {
+            OutputView.printUserInsertAmount(machineService.getUserAmount());
+            InputView.printInputProductToBuy();
+            String productName = InputView.getInput();
+            Product product = productService.findProductByName(productName);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e);
+        }
     }
 }
