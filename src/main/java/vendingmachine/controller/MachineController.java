@@ -78,5 +78,6 @@ public class MachineController {
 
     private void endMachine() {
         OutputView.printChangesMessage(machineService.getUserAmount());
+        OutputView.printChanges(machineService.getChanges());
     }
 }
