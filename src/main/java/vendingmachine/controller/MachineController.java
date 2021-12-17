@@ -1,6 +1,8 @@
 package vendingmachine.controller;
 
+import vendingmachine.util.AmountValidator;
 import vendingmachine.view.InputView;
+import vendingmachine.view.OutputView;
 
 public class MachineController {
     private static MachineController instance;
@@ -17,7 +19,18 @@ public class MachineController {
     }
 
     private void initMachine() {
-        String input = InputView.insertMachineAmount();
+        insertMachineAmount();
 
+    }
+
+    private void insertMachineAmount() {
+        InputView.printInsertMachineAmount();
+        try {
+            String input = InputView.getInput();
+            AmountValidator.validateMachineAmount(input);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e);
+            insertMachineAmount();
+        }
     }
 }
