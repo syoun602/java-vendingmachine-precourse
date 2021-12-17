@@ -11,6 +11,8 @@ public class ProductValidator {
     private static final int PRODUCT_QUANTITY_INDEX = 2;
     private static final int MIN_QUANTITY = 1;
     private static final int MIN_PRICE = 100;
+    private static final String OPEN_SQUARE_BRACKET = "[";
+    private static final String CLOSE_SQUARE_BRACKET = "]";
     private static final String PRODUCT_NAME = "상품명";
     private static final String PRODUCT_PRICE = "가격";
     private static final String PRODUCT_QUANTITY = "수량";
@@ -22,6 +24,7 @@ public class ProductValidator {
     private static final String INVALID_PRODUCT_NAME_MESSAGE = "상품명은 한글, 영문, 숫자로만 입력해주세요.";
     private static final String LOWER_THAN_MIN_PRICE_MESSAGE = "상품 가격은 100원 이상이어야 합니다.";
     private static final String LOWER_THAN_MIN_QUANTITY_MESSAGE = "상품 수량은 1개 이상이어야 합니다.";
+    private static final String NO_SQUARE_BRACKETS_USED_MESSAGE = "각 상품은 []로 감싸야 합니다.";
 
     public static void validateInput(String input) {
         validateInputLastCharacter(input);
@@ -37,9 +40,16 @@ public class ProductValidator {
 
     private static void validateEachProduct(List<String> productsList) {
         for (String product : productsList) {
+            validateBrackets(product);
             product = product.substring(1, product.length()-1);
             validateProductLastCharacter(product);
             validateEachDetail(Arrays.asList(product.split(COMMA)));
+        }
+    }
+
+    private static void validateBrackets(String product) {
+        if (!(product.startsWith(OPEN_SQUARE_BRACKET) && product.endsWith(CLOSE_SQUARE_BRACKET))) {
+            throw new IllegalArgumentException(NO_SQUARE_BRACKETS_USED_MESSAGE);
         }
     }
 
