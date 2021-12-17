@@ -1,6 +1,7 @@
 package vendingmachine.controller;
 
 import vendingmachine.service.MachineService;
+import vendingmachine.service.ProductService;
 import vendingmachine.util.AmountValidator;
 import vendingmachine.util.ProductValidator;
 import vendingmachine.view.InputView;
@@ -9,11 +10,13 @@ import vendingmachine.view.OutputView;
 public class MachineController {
     private static MachineController instance;
     private static MachineService machineService;
+    private static ProductService productService;
 
     public static MachineController getInstance() {
         if (instance == null) {
             instance = new MachineController();
             machineService = MachineService.getInstance();
+            productService = ProductService.getInstance();
         }
         return instance;
     }
@@ -28,7 +31,7 @@ public class MachineController {
         machineService.createVendingMachine(machineAmount);
         OutputView.printInitialCoins(machineService.getInitialCoins());
         InputView.printInsertProducts();
-        String productsInput = inputProducts();
+        productService.addProducts(inputProducts());
     }
 
     private int inputMachineAmount() {
