@@ -9,8 +9,10 @@ import java.util.TreeMap;
 public class VendingMachine {
     private static final Integer RAISE_COUNT = 1;
     private static final Integer DEFAULT_COUNT = 0;
+    private static final int DEFAULT_AMOUNT = 0;
 
     private final Map<Coin, Integer> coins;
+    private int userAmount = DEFAULT_AMOUNT;
 
     public VendingMachine() {
         coins = initCoins();
@@ -40,5 +42,13 @@ public class VendingMachine {
 
     public Map<Coin, Integer> getCoins() {
         return coins;
+    }
+
+    public void addUserAmount(int userAmount) {
+        this.userAmount += userAmount;
+    }
+
+    public int getUserAmount() {
+        return userAmount;
     }
 }
