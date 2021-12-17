@@ -2,6 +2,7 @@ package vendingmachine.controller;
 
 import vendingmachine.service.MachineService;
 import vendingmachine.util.AmountValidator;
+import vendingmachine.util.ProductValidator;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
 
@@ -23,19 +24,32 @@ public class MachineController {
 
     private void initMachine() {
         InputView.printInsertMachineAmount();
-        int machineAmount = insertMachineAmount();
+        int machineAmount = inputMachineAmount();
         machineService.createVendingMachine(machineAmount);
         OutputView.printInitialCoins(machineService.getInitialCoins());
+        InputView.printInsertProducts();
+        String productsInput = inputProducts();
     }
 
-    private int insertMachineAmount() {
+    private int inputMachineAmount() {
         try {
             String input = InputView.getInput();
-            AmountValidator.validateMachineAmount(input);
+            AmountValidator.validateAmount(input);
             return Integer.parseInt(input);
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e);
-            return insertMachineAmount();
+            return inputMachineAmount();
         }
     }
+    private String inputProducts() {
+        try {
+            String input = InputView.getInput();
+            ProductValidator.validateInput(input);
+            return input;
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e);
+            return inputProducts();
+        }
+    }
+
 }
