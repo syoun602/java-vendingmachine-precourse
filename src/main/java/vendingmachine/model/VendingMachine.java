@@ -1,16 +1,44 @@
 package vendingmachine.model;
 
+import vendingmachine.util.RandomCoinGenerator;
+
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class VendingMachine {
+    private static final Integer RAISE_COUNT = 1;
+    private static final Integer DEFAULT_COUNT = 0;
+
     private final Map<Coin, Integer> coins;
 
-    public VendingMachine(int machineAmount) {
-        coins = createCoins(machineAmount);
+    public VendingMachine() {
+        coins = initCoins();
     }
 
-    private Map<Coin, Integer> createCoins(int machineAmount) {
-        return new TreeMap<>();
+    private Map<Coin, Integer> initCoins() {
+        Map<Coin, Integer> coinMap = new TreeMap<>();
+        Arrays.stream(Coin.values()).sequential()
+                .forEach(coin -> coinMap.put(coin, DEFAULT_COUNT));
+        return coinMap;
+    }
+
+    public void createCoins(int machineAmount) {
+        while (machineAmount != 0) {
+            int coinValue = RandomCoinGenerator.getCoin(Coin.getCoinAmounts());
+            machineAmount = decideRaise(coinValue, machineAmount);
+        }
+    }
+
+    private int decideRaise(int value, int machineAmount) {
+        if (value <= machineAmount) {
+            machineAmount -= value;
+            coins.merge(Coin.findByValue(value), RAISE_COUNT, Integer::sum);
+        }
+        return machineAmount;
+    }
+
+    public Map<Coin, Integer> getCoins() {
+        return coins;
     }
 }
